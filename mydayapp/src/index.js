@@ -1,7 +1,6 @@
 import './css/base.css';
 import { MyStore } from './js/store';
-import { components } from './js/utils';
-import { todoItem } from './js/components';
+import { components, renderTodos } from './js/utils';
 
 // INIT STORE
 const store = MyStore.initStore();
@@ -12,18 +11,13 @@ components.inputNewTodo.addEventListener('keyup', (e) => {
   if (e.keyCode === 13) {
     console.log(e.target.value);
     store.addItem(e.target.value);
+    renderTodos();
+    e.target.value = '';
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const items = [];
-  const todos = store.getStore();
-  const containerTodos = components.containerTodos;
-  console.log(todos);
+document.addEventListener('DOMContentLoaded', renderTodos);
 
-  for (let todo of todos) {
-    const item = todoItem(todo.title, todo.completed);
-    items.push(item);
-  }
-  containerTodos.append(...items);
+window.addEventListener('storage', () => {
+  renderTodos();
 });

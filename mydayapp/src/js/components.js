@@ -1,6 +1,9 @@
+import { MyStore } from './store';
 import { createElement } from './dom';
 
-export const todoItem = (title, completed) => {
+const store = MyStore.initStore();
+
+export const todoItem = (title, completed, id) => {
   //#region Create elements
   const destroy = createElement('button', { className: 'destroy' });
   const label = createElement('label', {}, title);
@@ -28,8 +31,14 @@ export const todoItem = (title, completed) => {
   //#endregion
 
   //#region Events
+  itemContainer.dataset.key = id;
   toggleInput.addEventListener('change', () => {
     itemContainer.classList.toggle('completed');
+    store.toggleCompleted(id);
+  });
+  destroy.addEventListener('click', () => {
+    store.removeItem(id);
+    itemContainer.remove();
   });
   //#endregion
   return itemContainer;

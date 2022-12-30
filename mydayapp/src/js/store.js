@@ -1,5 +1,6 @@
 class ItemStore {
   constructor(completed, title) {
+    this.id = Date.now();
     this.completed = completed;
     this.title = title;
   }
@@ -33,6 +34,10 @@ class MyStore {
    *
    * @returns {ItemStore[]}
    */
+  updateStore(store) {
+    localStorage.setItem('mydayapp-js', JSON.stringify(store));
+  }
+
   getStore() {
     return this.store();
   }
@@ -41,11 +46,29 @@ class MyStore {
     const store = this.store();
     const item = new ItemStore(false, title);
     store.push(item);
+    this.updateStore(store);
+  }
+
+  toggleCompleted(id) {
+    const store = this.store();
+    const item = this.#findItem(store, id);
+    item.completed = !item.completed;
+    this.updateStore(store);
+  }
+
+  removeItem(id) {
+    const store = this.store();
+    const item = this.#findItem(store, id);
+    const index = store.indexOf(item);
+    store.splice(index, 1);
     localStorage.setItem('mydayapp-js', JSON.stringify(store));
   }
 
-  findItem(id) {
-    const store = this.store();
+  /**
+   * @param {Number} id
+   * @returns {ItemStore}
+   */
+  #findItem(store, id) {
     const item = store.find((item) => item.id === id);
 
     return item;

@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(todos);
 
   for (let todo of todos) {
-    const item = todoItem(todo.title);
+    const item = todoItem(todo.title, todo.completed);
     items.push(item);
   }
   containerTodos.append(...items);

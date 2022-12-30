@@ -1,3 +1,9 @@
+/**
+ * @param {String} tag
+ * @param {Object} attr - attributes
+ * @param {HTMLElement | Array<HTMLElement> | String} children
+ * @returns {HTMLElement}
+ */
 export const createElement = (tag, attr, children) => {
   const element = document.createElement(tag);
   if (attr) Object.assign(element, attr);

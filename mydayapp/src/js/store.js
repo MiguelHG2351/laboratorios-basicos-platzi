@@ -1,7 +1,7 @@
 class ItemStore {
-  constructor(isCompleted, text) {
-    this.isCompleted = isCompleted;
-    this.text = text;
+  constructor(completed, title) {
+    this.completed = completed;
+    this.title = title;
   }
 }
 
@@ -33,9 +33,9 @@ class MyStore {
     console.log(this.store());
   }
 
-  addItem(text) {
+  addItem(title) {
     const store = this.store();
-    const item = new ItemStore(false, text);
+    const item = new ItemStore(false, title);
     store.push(item);
     localStorage.setItem('mydayapp-js', JSON.stringify(store));
   }

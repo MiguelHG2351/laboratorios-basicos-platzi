@@ -29,8 +29,12 @@ class MyStore {
     return this.instance;
   }
 
+  /**
+   *
+   * @returns {ItemStore[]}
+   */
   getStore() {
-    console.log(this.store());
+    return this.store();
   }
 
   addItem(title) {

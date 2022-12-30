@@ -1,7 +1,3 @@
-export const sayHello = (text) => {
-  return text;
-};
-
 export const TYPES = {
   object: '[object Object]',
   htmlElement: '[object HTMLElement]',
@@ -18,4 +14,5 @@ export const components = {
   inputNewTodo: document.querySelector('.new-todo'),
   inputToggle: document.querySelector('.toggle'),
   inputEdit: document.querySelector('.edit'),
+  containerTodos: document.querySelector('.todo-list'),
 };

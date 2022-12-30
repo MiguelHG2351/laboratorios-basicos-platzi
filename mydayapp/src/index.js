@@ -1,6 +1,7 @@
 import './css/base.css';
 import { MyStore } from './js/store';
-import { sayHello, components } from './js/utils';
+import { components } from './js/utils';
+import { todoItem } from './js/components';
 
 // INIT STORE
 const store = MyStore.initStore();
@@ -14,4 +15,15 @@ components.inputNewTodo.addEventListener('keyup', (e) => {
   }
 });
 
-console.log(sayHello('Hello'));
+document.addEventListener('DOMContentLoaded', () => {
+  const items = [];
+  const todos = store.getStore();
+  const containerTodos = components.containerTodos;
+  console.log(todos);
+
+  for (let todo of todos) {
+    const item = todoItem(todo.title);
+    items.push(item);
+  }
+  containerTodos.append(...items);
+});

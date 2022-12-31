@@ -10,6 +10,6 @@ export const createElement = (tag, attr, children) => {
   if (children instanceof HTMLElement) element.appendChild(children);
   if (children instanceof Array && children[0] instanceof HTMLElement)
     element.append(...children);
-  if (typeof children === 'string') element.innerText = children;
+  if (typeof children === 'string') element.innerText = children.trim();
   return element;
 };

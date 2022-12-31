@@ -1,3 +1,4 @@
+import { components as _compontents } from './utils';
 import { todoItem } from './components';
 import { MyStore } from './store';
 
@@ -20,13 +21,13 @@ export const components = {
   inputToggle: document.querySelector('.toggle'),
   inputEdit: document.querySelector('.edit'),
   containerTodos: document.querySelector('.todo-list'),
+  todoCount: document.querySelector('.todo-count'),
 };
 
 export const renderTodos = () => {
   const items = [];
   const todos = store.getStore();
   const containerTodos = components.containerTodos;
-  console.log(todos);
 
   if (containerTodos.children.length > 0) {
     containerTodos.innerHTML = '';
@@ -35,5 +36,21 @@ export const renderTodos = () => {
     const item = todoItem(todo.title, todo.completed, todo.id);
     items.push(item);
   }
+  _compontents.todoCount.innerHTML = `${todos.length} items left`;
+  _compontents.todoCount.setAttribute('data-count', todos.length);
   containerTodos.append(...items);
+};
+
+/**
+ * @param {import('./store').ItemStore} todo
+ */
+export const insertTodo = (todo) => {
+  const containerTodos = components.containerTodos;
+  const item = todoItem(todo.title, todo.completed, todo.id);
+  let lastCount = _compontents.todoCount.getAttribute('data-count') - 0;
+
+  containerTodos.append(item);
+  lastCount++;
+  _compontents.todoCount.setAttribute('data-count', lastCount);
+  _compontents.todoCount.innerHTML = `${lastCount} items left`;
 };

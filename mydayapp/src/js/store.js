@@ -1,4 +1,4 @@
-class ItemStore {
+export class ItemStore {
   constructor(completed, title) {
     this.id = Date.now();
     this.completed = completed;
@@ -7,17 +7,6 @@ class ItemStore {
 }
 
 class MyStore {
-  store = () => {
-    try {
-      const storage = localStorage.getItem('mydayapp-js');
-      const parse = JSON.parse(storage);
-
-      return parse;
-    } catch (e) {
-      console.warn('Error parsing localStorage');
-      return null;
-    }
-  };
   static instance = null;
 
   /**
@@ -30,6 +19,18 @@ class MyStore {
     return this.instance;
   }
 
+  #store() {
+    try {
+      const storage = localStorage.getItem('mydayapp-js');
+      const parse = JSON.parse(storage);
+
+      return parse;
+    } catch (e) {
+      console.warn('Error parsing localStorage');
+      return null;
+    }
+  }
+
   /**
    *
    * @returns {ItemStore[]}
@@ -39,25 +40,32 @@ class MyStore {
   }
 
   getStore() {
-    return this.store();
+    return this.#store();
   }
 
+  /**
+   *
+   * @param {string} title
+   * @returns {ItemStore}
+   */
   addItem(title) {
-    const store = this.store();
+    const store = this.#store();
     const item = new ItemStore(false, title);
     store.push(item);
     this.updateStore(store);
+
+    return item;
   }
 
   toggleCompleted(id) {
-    const store = this.store();
+    const store = this.#store();
     const item = this.#findItem(store, id);
     item.completed = !item.completed;
     this.updateStore(store);
   }
 
   removeItem(id) {
-    const store = this.store();
+    const store = this.#store();
     const item = this.#findItem(store, id);
     const index = store.indexOf(item);
     store.splice(index, 1);
@@ -75,7 +83,7 @@ class MyStore {
   }
 
   constructor(initialState) {
-    if (!this.store()) {
+    if (!this.#store()) {
       let state = initialState;
       if (typeof state === 'undefined') {
         console.warn('No initial state provided');

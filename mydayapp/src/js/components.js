@@ -1,5 +1,6 @@
 import { MyStore } from './store';
 import { createElement } from './dom';
+import { components } from './utils';
 
 const store = MyStore.initStore();
 
@@ -24,7 +25,7 @@ export const todoItem = (title, completed, id) => {
   const itemContainer = createElement(
     'li',
     {
-      className: completed ? 'completed' : null,
+      className: completed ? 'completed' : '',
     },
     [view, editInput]
   );
@@ -37,8 +38,13 @@ export const todoItem = (title, completed, id) => {
     store.toggleCompleted(id);
   });
   destroy.addEventListener('click', () => {
+    let count = components.todoCount.getAttribute('data-count') - 0;
     store.removeItem(id);
     itemContainer.remove();
+    console.log(count);
+    count--;
+    components.todoCount.setAttribute('data-count', count);
+    components.todoCount.innerHTML = `${count} items left`;
   });
   //#endregion
   return itemContainer;

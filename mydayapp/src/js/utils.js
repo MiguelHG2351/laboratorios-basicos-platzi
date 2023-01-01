@@ -22,6 +22,7 @@ export const components = {
   inputEdit: document.querySelector('.edit'),
   containerTodos: document.querySelector('.todo-list'),
   todoCount: document.querySelector('.todo-count'),
+  buttonClearCompleted: document.querySelector('.clear-completed'),
 };
 
 export const renderTodos = () => {

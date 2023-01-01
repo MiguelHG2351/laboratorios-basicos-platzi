@@ -19,6 +19,9 @@ class MyStore {
     return this.instance;
   }
 
+  /**
+   * @returns {ItemStore[]}
+   */
   #store() {
     try {
       const storage = localStorage.getItem('mydayapp-js');
@@ -80,7 +83,13 @@ class MyStore {
     const item = this.#findItem(store, id);
     const index = store.indexOf(item);
     store.splice(index, 1);
-    localStorage.setItem('mydayapp-js', JSON.stringify(store));
+    this.#updateStore(store);
+  }
+
+  clearCompleted() {
+    const store = this.#store();
+    const items = store.filter((item) => !item.completed);
+    this.#updateStore(items);
   }
 
   /**

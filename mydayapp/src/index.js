@@ -20,6 +20,11 @@ components.inputNewTodo.addEventListener('keyup', (e) => {
   }
 });
 
+components.buttonClearCompleted.addEventListener('click', () => {
+  store.clearCompleted();
+  renderTodos();
+});
+
 document.addEventListener('DOMContentLoaded', renderTodos);
 
 window.addEventListener('storage', () => {

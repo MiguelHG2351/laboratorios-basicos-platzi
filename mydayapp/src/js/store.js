@@ -35,7 +35,7 @@ class MyStore {
    *
    * @returns {ItemStore[]}
    */
-  updateStore(store) {
+  #updateStore(store) {
     localStorage.setItem('mydayapp-js', JSON.stringify(store));
   }
 
@@ -52,7 +52,7 @@ class MyStore {
     const store = this.#store();
     const item = new ItemStore(false, title);
     store.push(item);
-    this.updateStore(store);
+    this.#updateStore(store);
 
     return item;
   }
@@ -61,7 +61,18 @@ class MyStore {
     const store = this.#store();
     const item = this.#findItem(store, id);
     item.completed = !item.completed;
-    this.updateStore(store);
+    this.#updateStore(store);
+  }
+
+  /**
+   * @param {string} title
+   * @param {number} id
+   */
+  editTitleItem(title, id) {
+    const store = this.#store();
+    const item = this.#findItem(store, id);
+    item.title = title;
+    this.#updateStore(store);
   }
 
   removeItem(id) {

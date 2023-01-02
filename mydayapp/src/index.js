@@ -1,13 +1,13 @@
 import './css/base.css';
 import { MyStore } from './js/store';
 import { components, renderTodos, insertTodo } from './js/utils';
-import { initRouter } from './js/router';
+import { router } from './js/router/index.routes';
 
 // INIT STORE
 const store = MyStore.initStore();
 
-window.addEventListener('hashchange', initRouter);
-window.addEventListener('load', initRouter);
+window.addEventListener('hashchange', router);
+window.addEventListener('load', router);
 
 // Events
 // detect enter on input
@@ -25,6 +25,7 @@ components.buttonClearCompleted.addEventListener('click', () => {
   renderTodos();
 });
 
+// TODO: Pasar esto a cada ruta ya que el evento hash se dispara en cada cambio de ruta
 document.addEventListener('DOMContentLoaded', renderTodos);
 
 window.addEventListener('storage', () => {

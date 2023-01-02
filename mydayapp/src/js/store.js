@@ -46,6 +46,16 @@ class MyStore {
     return this.#store();
   }
 
+  getPendings() {
+    const store = this.#store();
+    return store.filter((item) => !item.completed);
+  }
+
+  getCompleteds() {
+    const store = this.#store();
+    return store.filter((item) => item.completed);
+  }
+
   /**
    *
    * @param {string} title

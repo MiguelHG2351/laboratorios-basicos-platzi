@@ -25,9 +25,8 @@ export const components = {
   buttonClearCompleted: document.querySelector('.clear-completed'),
 };
 
-export const renderTodos = () => {
+export const render = (todos) => {
   const items = [];
-  const todos = store.getStore();
   const containerTodos = components.containerTodos;
 
   if (containerTodos.children.length > 0) {
@@ -40,6 +39,21 @@ export const renderTodos = () => {
   _compontents.todoCount.innerHTML = `${todos.length} items left`;
   _compontents.todoCount.setAttribute('data-count', todos.length);
   containerTodos.append(...items);
+};
+
+export const renderTodos = () => {
+  const todos = store.getStore();
+  render(todos);
+};
+
+export const renderPending = () => {
+  const todos = store.getPendings();
+  render(todos);
+};
+
+export const renderCompleted = () => {
+  const todos = store.getCompleteds();
+  render(todos);
 };
 
 /**

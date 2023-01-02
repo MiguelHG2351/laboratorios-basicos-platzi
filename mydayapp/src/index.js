@@ -23,6 +23,7 @@ components.inputNewTodo.addEventListener('keyup', (e) => {
 components.buttonClearCompleted.addEventListener('click', () => {
   console.log('clear completed');
   store.clearCompleted();
+  components.buttonClearCompleted.style.visibility = 'hidden';
   router();
 });
 

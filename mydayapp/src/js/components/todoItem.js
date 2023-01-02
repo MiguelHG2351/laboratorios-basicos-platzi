@@ -1,6 +1,6 @@
-import { MyStore } from './store';
-import { createElement } from './dom';
-import { components } from './utils';
+import { MyStore } from '../store';
+import { createElement } from '../dom';
+import { components } from '../utils';
 
 const store = MyStore.initStore();
 
@@ -36,6 +36,16 @@ export const todoItem = (title, completed, id) => {
   toggleInput.addEventListener('change', () => {
     itemContainer.classList.toggle('completed');
     store.toggleCompleted(id);
+    if (
+      location.hash === '#/pending' &&
+      itemContainer.classList.contains('completed')
+    ) {
+      itemContainer.remove();
+      let count = components.todoCount.getAttribute('data-count') - 0;
+      count--;
+      components.todoCount.setAttribute('data-count', count);
+      components.todoCount.innerHTML = `${count} items left`;
+    }
   });
   destroy.addEventListener('click', () => {
     let count = components.todoCount.getAttribute('data-count') - 0;

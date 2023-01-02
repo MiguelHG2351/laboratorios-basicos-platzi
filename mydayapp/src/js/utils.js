@@ -1,19 +1,19 @@
 import { components as _compontents } from './utils';
-import { todoItem } from './components';
+import { todoItem } from './components/todoItem';
 import { MyStore } from './store';
 
 const store = MyStore.initStore();
 
-export const TYPES = {
-  object: '[object Object]',
-  htmlElement: '[object HTMLElement]',
-  array: '[object Array]',
-  string: '[object String]',
-  number: '[object Number]',
-  boolean: '[object Boolean]',
-  undefined: '[object Undefined]',
-  null: '[object Null]',
-};
+// export const TYPES = {
+//   object: '[object Object]',
+//   htmlElement: '[object HTMLElement]',
+//   array: '[object Array]',
+//   string: '[object String]',
+//   number: '[object Number]',
+//   boolean: '[object Boolean]',
+//   undefined: '[object Undefined]',
+//   null: '[object Null]',
+// };
 
 export const components = {
   body: document.querySelector('body'),
@@ -25,6 +25,7 @@ export const components = {
   buttonClearCompleted: document.querySelector('.clear-completed'),
 };
 
+// #region Render methods
 export const render = (todos) => {
   const items = [];
   const containerTodos = components.containerTodos;
@@ -69,3 +70,5 @@ export const insertTodo = (todo) => {
   _compontents.todoCount.setAttribute('data-count', lastCount);
   _compontents.todoCount.innerHTML = `${lastCount} items left`;
 };
+
+// #endregion

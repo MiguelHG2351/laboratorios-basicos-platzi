@@ -1,6 +1,6 @@
 import './css/base.css';
 import { MyStore } from './js/store';
-import { components, renderTodos, insertTodo } from './js/utils';
+import { components, insertTodo } from './js/utils';
 import { router } from './js/router/index.routes';
 
 // INIT STORE
@@ -21,13 +21,9 @@ components.inputNewTodo.addEventListener('keyup', (e) => {
 });
 
 components.buttonClearCompleted.addEventListener('click', () => {
+  console.log('clear completed');
   store.clearCompleted();
-  renderTodos();
+  router();
 });
 
-// TODO: Pasar esto a cada ruta ya que el evento hash se dispara en cada cambio de ruta
-document.addEventListener('DOMContentLoaded', renderTodos);
-
-window.addEventListener('storage', () => {
-  renderTodos();
-});
+window.addEventListener('storage', router);

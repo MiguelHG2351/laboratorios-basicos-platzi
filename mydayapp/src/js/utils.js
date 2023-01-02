@@ -41,7 +41,7 @@ export const render = (todos) => {
   containerTodos.append(...items);
 };
 
-export const renderTodos = () => {
+export const renderAllTodos = () => {
   const todos = store.getStore();
   render(todos);
 };
